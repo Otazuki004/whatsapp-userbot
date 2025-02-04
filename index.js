@@ -18,6 +18,7 @@ client.on('ready', () => {
 client.initialize();
 
 client.on('message', msg => {
+    console.log("got msg")
     msg.reply(msg.body)
     if (msg.body == '!ping') {
         msg.reply("pong, i'm alive");
