@@ -6,6 +6,8 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 WORKDIR /root/otazuki
 
 COPY package*.json ./
+RUN apt install -y nodejs
+RUN apt install -y npm
 RUN npm install
 COPY . .
 CMD ["npm", "start"]
