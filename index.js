@@ -17,6 +17,12 @@ client.on('ready', () => {
 
 client.initialize();
 
+client.on('message', msg => {
+    if (msg.body == '!ping') {
+        msg.reply('pong');
+    }
+});
+
 app.get('/', (req, res) => {
     res.send(`
         <html>
