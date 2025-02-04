@@ -1,6 +1,6 @@
-import { Client } from 'whatsapp-web.js';
-import express from 'express';
-import qrcode from 'qrcode';
+const { Client, MessageMedia } = require('whatsapp-web.js');
+const express = require('express');
+const qrcode = require('qrcode-terminal');
 
 const app = express();
 const client = new Client();
