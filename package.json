@@ -1,16 +1,49 @@
 {
-  "name": "whatsapp-bot",
+  "name": "whatsapp-userbot",
   "version": "1.0.0",
-  "description": "A WhatsApp bot using whatsapp-web.js",
-  "type": "module",
+  "description": "A whatsapp bot",
   "main": "index.js",
   "scripts": {
-    "start": "node app/index.js",
-    "build": "npm install"
+    "start": "pm2 start index.js --deep-monitoring --attach --name otazuki",
+    "stop": "pm2 stop otazuki",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "otazuki",
+  "license": "MIT",
   "dependencies": {
+    "@sasmeee/igdl": "^1.0.0",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1",
+    "download": "^8.0.0",
     "express": "^4.18.2",
-    "whatsapp-web.js": "^1.20.0",
-    "qrcode": "^1.5.1"
-  }
+    "fluent-ffmpeg": "^2.1.2",
+    "form-data": "^4.0.0",
+    "mime-to-extensions": "^1.0.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.2.0",
+    "node-fetch": "^3.3.2",
+    "pm2": "^5.3.0",
+    "puppeteer": "^21.4.1",
+    "qr-image": "^3.2.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.23.1-alpha.5",
+    "whatsapp-web.js-remote-auth-fixed": "github:awesome-tofu/whatsapp-web.js#fix-remote-auth",
+    "wikipedia": "^2.1.1",
+    "wwebjs-mongo": "^1.1.0",
+    "ytdl-core": "^4.11.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Otazuki004/whatsapp-userbot.git"
+  },
+  "keywords": [
+    "Whatsapp-bot",
+    "whatsapp-web.js",
+    "puppeteer"
+  ],
+  "bugs": {
+    "url": "https://github.com/Otazuki004/whatsapp-userbot/issues"
+  },
+  "homepage": "https://github.com/Otazuki004/whatsapp-userbot#readme"
 }
