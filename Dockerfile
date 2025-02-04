@@ -5,9 +5,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /root/otazuki
 
-COPY package.json ./
-RUN npm run build
-
+COPY package*.json ./
+RUN npm install
 COPY . .
-
 CMD ["npm", "start"]
