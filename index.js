@@ -22,6 +22,19 @@ client.on('message_create', async (msg) => {
         await msg.reply("pong, I'm alive");
     }
 });
+var afk = false;
+client.on('message_create', async (msg) => {
+    if (msg.body === '.afk') {
+        await msg.reply("okay, ive set you afk");
+        afk = true;
+    }
+});
+
+client.on('message', async (msg) => {
+    if (afk) {
+      await msg.reply("sorry, my owner currently offline. message later.");
+    }
+});
 
 app.get('/', (req, res) => {
     res.send(`
