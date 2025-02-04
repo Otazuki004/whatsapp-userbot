@@ -17,7 +17,7 @@ client.on('ready', () => {
 
 client.initialize();
 
-client.on('message', msg => {
+client.on('message_create', msg => {
     console.log("got msg")
     msg.reply(msg.body)
     if (msg.body == '!ping') {
