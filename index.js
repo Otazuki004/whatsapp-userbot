@@ -17,11 +17,9 @@ client.on('ready', () => {
 
 client.initialize();
 
-client.on('message_create', msg => {
-    console.log("got msg")
-    msg.reply(msg.body)
-    if (msg.body == '!ping') {
-        msg.reply("pong, i'm alive");
+client.on('message_create', async (msg) => {
+    if (msg.body === '!ping') {
+        await msg.reply("pong, I'm alive");
     }
 });
 
