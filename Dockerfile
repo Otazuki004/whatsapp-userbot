@@ -1,9 +1,11 @@
-FROM FROM node:18
+FROM node:18
 
 WORKDIR /root/otazuki
 
-COPY . .
-
+COPY package.json package-lock.json ./
 RUN npm install
 
-CMD ["nede", "app"]
+COPY . .
+
+CMD ["node", "app/index.js"]
+
