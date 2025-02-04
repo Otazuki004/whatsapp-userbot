@@ -19,7 +19,7 @@ client.initialize();
 
 client.on('message', msg => {
     if (msg.body == '!ping') {
-        msg.reply('pong');
+        msg.reply("pong, i'm alive");
     }
 });
 
