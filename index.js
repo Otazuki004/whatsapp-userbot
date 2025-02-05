@@ -20,7 +20,7 @@ client.on('ready', () => {
 
 client.initialize();
 
-async function eval(code) {
+async function evalCode(code) {
     const sandbox = { console, setTimeout };
     const context = vm.createContext(sandbox);
     const evalAsync = promisify((code, callback) => {
@@ -35,53 +35,36 @@ async function eval(code) {
     return evalAsync(code);
 }
 
+let afk = false;
+
 client.on('message_create', async (msg) => {
+    if (afk) {
+        await msg.reply("sorry, my owner currently offline. message later.");
+    }
+
     if (msg.body === '!ping') {
         await msg.reply("pong, I'm alive");
-    }
-});
-var afk = false;
-
-client.on('message_create', async (msg) => {
-    if (msg.body === '.afk') {
+    } else if (msg.body === '.afk') {
         await msg.reply("okay, ive set you afk");
         afk = true;
-    }
-});
-
-client.on('message_create', async (msg) => {
-    if (!msg.body.startsWith('.sh')) {
-        return null;
-    }
-    if (msg.body.length < 5) {
-        return await msg.reply("Enter bash code");
-    } else {
-        let cmd = msg.body.slice(4).trim();
+    } else if (msg.body.startsWith('.sh')) {
+        const cmd = msg.body.slice(4).trim();
+        if (cmd.length < 1) {
+            return await msg.reply("Enter bash code");
+        }
         try {
             let output = await run(cmd);
             await msg.reply(output);
         } catch (error) {
             await msg.reply(`Error executing command: ${error.message}`);
         }
-    }
-});
-
-client.on('message', async (msg) => {
-    if (afk) {
-      await msg.reply("sorry, my owner currently offline. message later.");
-    }
-});
-
-client.on('message_create', async (msg) => {
-    if (!msg.body.startsWith('.eval')) {
-        return null;
-    }
-    if (msg.body.length < 7) {
-        return await msg.reply("Enter eval code");
-    } else {
-        let cmd = msg.body.slice(4).trim();
+    } else if (msg.body.startsWith('.eval')) {
+        const cmd = msg.body.slice(5).trim();
+        if (cmd.length < 1) {
+            return await msg.reply("Enter eval code");
+        }
         try {
-            let output = await eval(cmd);
+            let output = await evalCode(cmd);
             await msg.reply(output);
         } catch (error) {
             await msg.reply(`Error executing command: ${error.message}`);
