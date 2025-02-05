@@ -35,7 +35,10 @@ client.on('message_create', async (msg) => {
 });
 
 client.on('message_create', async (msg) => {
-    if (msg.body === '.sh' || msg.body.length < 5) {
+    if (!msg.body.startsWith('.sh')) {
+        return null;
+    }
+    if (msg.body.length < 5) {
         return await msg.reply("Enter bash code");
     } else {
         const cmd = msg.body.slice(4).trim();
