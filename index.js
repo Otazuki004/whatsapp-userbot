@@ -20,8 +20,16 @@ client.on('ready', () => {
 
 client.initialize();
 
-async function evalCode(code) {
-    const sandbox = { console, setTimeout };
+async function eval(code) {
+    const output = [];
+    const sandbox = {
+        console: {
+            log: (...args) => output.push(args.join(' ')),
+            error: (...args) => output.push(args.join(' ')),
+            warn: (...args) => output.push(args.join(' ')),
+        },
+        setTimeout,
+    };
     const context = vm.createContext(sandbox);
     const evalAsync = promisify((code, callback) => {
         try {
@@ -32,8 +40,10 @@ async function evalCode(code) {
         }
     });
 
-    return evalAsync(code);
+    await evalAsync(code);
+    return output.join('\n');
 }
+
 
 let afk = false;
 
