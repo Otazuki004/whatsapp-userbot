@@ -1,6 +1,7 @@
 const { Client, MessageMedia, LocalAuth } = require('whatsapp-web.js');
 const express = require('express');
 const qrcode = require('qrcode');
+const run = require('./helpers/run')
 
 const app = express();
 const client = new Client({
@@ -25,10 +26,22 @@ client.on('message_create', async (msg) => {
     }
 });
 var afk = false;
+
 client.on('message_create', async (msg) => {
     if (msg.body === '.afk') {
         await msg.reply("okay, ive set you afk");
         afk = true;
+    }
+});
+
+client.on('message_create', async (msg) => {
+    if (msg.body === '.sh' || (msg.body).length < 5) {
+        return await msg.reply("enter bash code")
+    }
+    else {
+        const cmd = msg.body.slice(4)
+        output = await run(cmd)
+        await msg.reply(output)
     }
 });
 
