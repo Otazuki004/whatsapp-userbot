@@ -56,9 +56,9 @@ client.on('message_create', async (msg) => {
     if (msg.body.length < 5) {
         return await msg.reply("Enter bash code");
     } else {
-        const cmd = msg.body.slice(4).trim();
+        let cmd = msg.body.slice(4).trim();
         try {
-            const output = await run(cmd);
+            let output = await run(cmd);
             await msg.reply(output);
         } catch (error) {
             await msg.reply(`Error executing command: ${error.message}`);
@@ -79,9 +79,9 @@ client.on('message_create', async (msg) => {
     if (msg.body.length < 7) {
         return await msg.reply("Enter eval code");
     } else {
-        const cmd = msg.body.slice(4).trim();
+        let cmd = msg.body.slice(4).trim();
         try {
-            const output = await eval(cmd);
+            let output = await eval(cmd);
             await msg.reply(output);
         } catch (error) {
             await msg.reply(`Error executing command: ${error.message}`);
