@@ -22,3 +22,5 @@ function run(command, args = []) {
         });
     });
 }
+
+module.exports = run;
