@@ -14,11 +14,7 @@ function run(command) {
         });
 
         process.on('close', (code) => {
-            if (code === 0) {
-                resolve(output);
-            } else {
-                reject(new Error(`Process exited with code ${code}`));
-            }
+            resolve(output);
         });
     });
 }
