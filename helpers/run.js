@@ -10,7 +10,7 @@ function run(command) {
         });
 
         process.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
+            output += data.toString();
         });
 
         process.on('close', (code) => {
