@@ -2,6 +2,7 @@ const { spawn, exec } = require('child_process');
 
 function run(command) {
     return new Promise((resolve, reject) => {
+     try {   
         const process = spawn(command);
         let output = '';
 
@@ -16,6 +17,8 @@ function run(command) {
         process.on('close', (code) => {
             resolve(output);
         });
+    } catch (error) {
+        resolve(error)
     });
 }
 
