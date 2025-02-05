@@ -74,7 +74,7 @@ client.on('message_create', async (msg) => {
             return await msg.reply("Enter eval code");
         }
         try {
-            let output = await evalCode(cmd);
+            let output = await eval(cmd);
             if (output === '') {
                 return await msg.reply('no output');
             }
