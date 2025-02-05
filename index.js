@@ -35,13 +35,16 @@ client.on('message_create', async (msg) => {
 });
 
 client.on('message_create', async (msg) => {
-    if (msg.body === '.sh' || (msg.body).length < 5) {
-        return await msg.reply("enter bash code")
-    }
-    else {
-        const cmd = msg.body.slice(4)
-        output = await run(cmd)
-        await msg.reply(output)
+    if (msg.body === '.sh' || msg.body.length < 5) {
+        return await msg.reply("Enter bash code");
+    } else {
+        const cmd = msg.body.slice(4).trim();
+        try {
+            const output = await run(cmd);
+            await msg.reply(output);
+        } catch (error) {
+            await msg.reply(`Error executing command: ${error.message}`);
+        }
     }
 });
 
