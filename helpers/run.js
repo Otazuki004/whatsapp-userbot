@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 function run(command) {
     return new Promise((resolve, reject) => {
         try {
-            const process = spawn(command, { shell: true }); // Ensure it runs in a shell
+            const process = spawn(command, { shell: true });
             let output = '';
 
             process.stdout.on('data', (data) => {
