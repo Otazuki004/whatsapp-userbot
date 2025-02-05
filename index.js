@@ -4,9 +4,7 @@ const qrcode = require('qrcode');
 const run = require('./helpers/run')
 
 const app = express();
-const client = new Client({
-    authStrategy: new LocalAuth()
-});
+const client = new Client();
 
 let qrCodeUrl = '';
 
