@@ -2,6 +2,8 @@ const { Client, MessageMedia, LocalAuth } = require('whatsapp-web.js');
 const express = require('express');
 const qrcode = require('qrcode');
 const run = require('./helpers/run')
+const { promisify } = require('util');
+const vm = require('vm');
 
 const app = express();
 const client = new Client();
@@ -17,6 +19,21 @@ client.on('ready', () => {
 });
 
 client.initialize();
+
+async function eval(code) {
+    const sandbox = { console, setTimeout };
+    const context = vm.createContext(sandbox);
+    const evalAsync = promisify((code, callback) => {
+        try {
+            const result = vm.runInContext(code, context);
+            callback(null, result);
+        } catch (error) {
+            callback(error);
+        }
+    });
+
+    return evalAsync(code);
+}
 
 client.on('message_create', async (msg) => {
     if (msg.body === '!ping') {
@@ -52,6 +69,23 @@ client.on('message_create', async (msg) => {
 client.on('message', async (msg) => {
     if (afk) {
       await msg.reply("sorry, my owner currently offline. message later.");
+    }
+});
+
+client.on('message_create', async (msg) => {
+    if (!msg.body.startsWith('.eval')) {
+        return null;
+    }
+    if (msg.body.length < 7) {
+        return await msg.reply("Enter eval code");
+    } else {
+        const cmd = msg.body.slice(4).trim();
+        try {
+            const output = await eval(cmd);
+            await msg.reply(output);
+        } catch (error) {
+            await msg.reply(`Error executing command: ${error.message}`);
+        }
     }
 });
 
