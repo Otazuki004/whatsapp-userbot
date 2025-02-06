@@ -51,7 +51,7 @@ client.on('message', async (msg) => {
     if (afk) {
         await msg.reply("sorry, my owner currently offline. message later.");
     }
-}
+});
 client.on('message_create', async (msg) => {
     if (msg.body === '!ping') {
         await msg.reply("pong, I'm alive");
